@@ -8,11 +8,13 @@ headers = {
 }
 r = requests.get(cfg.vault_url+cfg.vault_path, headers=headers)
 
+envfile = "/env/secret"+cfg.vault_path.replace('/','-')+".env"
+
 if r.status_code == 200:
   jsondata = json.loads(r.text)
   secrets = jsondata['data']['data']
-  open('/env/secret.env', 'w').close()
-  f = open("/env/secret.env", "a")
+  open(envfile, 'w').close()
+  f = open(envfile, "a")
   for i in secrets:
     f.write(i.upper()+'="'+secrets[i].replace("\n","")+'"'+"\n")
   f.close()
