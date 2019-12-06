@@ -1,6 +1,7 @@
 import requests
 import json
 import sys
+import time
 import conf.default as cfg
 
 headers = {
@@ -18,6 +19,7 @@ if r.status_code == 200:
   for i in secrets:
     f.write(i.upper()+'="'+secrets[i].replace("\n","")+'"'+"\n")
   f.close()
+  time.sleep(10)
   print("Secrets ok")
 else:
   print("Error status code =! 200, retrieving secret")
